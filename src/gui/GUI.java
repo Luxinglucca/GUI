@@ -6,6 +6,7 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,23 +30,31 @@ public class GUI implements ActionListener {
         private JLabel label;
         private JFrame frame;
         private JPanel panel;
+        private JLabel label1;
+        private Font font;
     
     public GUI() {
         
-        JButton button = new JButton("generate Password");
+        JButton button = new JButton("Generate Password");
         button.addActionListener(this);
-       
+        
+        font = new Font("Courier" , Font.BOLD,30);
+        
         frame = new JFrame();
         
         panel = new JPanel();
         
-        label = new JLabel("output", SwingConstants.CENTER);
+        label = new JLabel("Output", SwingConstants.CENTER);
+        label1 = new JLabel("Password Generator", SwingConstants.CENTER);
+        label1.setVerticalTextPosition(JLabel.TOP);
+        label1.setFont(font.deriveFont(font.getStyle() | Font.BOLD));
         
         
         panel.setBorder(BorderFactory.createEmptyBorder(100, 100, 25, 100));
         panel.setLayout(new GridLayout(0, 1));
         panel.add(button);
         panel.add(label);
+        panel.add(label1);
         
         frame.add(panel, BorderLayout.CENTER);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,5 +119,4 @@ public class GUI implements ActionListener {
         // return the resultant string
         return r.toString();
     }
-    //hi
 }
