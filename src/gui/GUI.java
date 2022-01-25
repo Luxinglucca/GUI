@@ -19,6 +19,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
+import java.awt.datatransfer.StringSelection;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
 
 /**
  *
@@ -50,6 +53,7 @@ public class GUI implements ActionListener {
         label1.setFont(font.deriveFont(font.getStyle() | Font.BOLD));
         
         
+        
         panel.setBorder(BorderFactory.createEmptyBorder(100, 100, 25, 100));
         panel.setLayout(new GridLayout(0, 1));
         panel.add(button);
@@ -68,11 +72,21 @@ public class GUI implements ActionListener {
         new GUI();
         
     }
+
+    /**
+     *
+     * @param e this method checks whether a click happens on the button 
+     */
+    @Override
         public void actionPerformed(ActionEvent e) {
         count++;
         //label.setText("Number of clicks: " + count);
         if(count == 1) {
             String s = passowrdGenerator();
+             String myString = s;
+            StringSelection stringSelection = new StringSelection(myString);
+            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+            clipboard.setContents(stringSelection, null);
             label.setText("Your password is " + s );
         }
         if(count == 2) 
