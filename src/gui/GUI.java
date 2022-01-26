@@ -27,6 +27,8 @@ import java.awt.datatransfer.Clipboard;
  *
  * @author Luxin
  */
+
+
 public class GUI implements ActionListener {
 
         private int count = 0;
@@ -35,11 +37,21 @@ public class GUI implements ActionListener {
         private JPanel panel;
         private JLabel label1;
         private Font font;
+        
+    private enum Action {
+        Generate, 
+        close
+    }
     
     public GUI() {
         
         JButton button = new JButton("Generate Password");
+        button.setActionCommand(Action.Generate.name());
         button.addActionListener(this);
+        
+        JButton button1 = new JButton("Close App");
+        button1.setActionCommand(Action.close.name());
+        button1.addActionListener(this);
         
         font = new Font("Courier" , Font.BOLD,30);
         
@@ -57,6 +69,7 @@ public class GUI implements ActionListener {
         panel.setBorder(BorderFactory.createEmptyBorder(100, 100, 25, 100));
         panel.setLayout(new GridLayout(0, 1));
         panel.add(button);
+        panel.add(button1);
         panel.add(label);
         panel.add(label1);
         
@@ -79,19 +92,19 @@ public class GUI implements ActionListener {
      */
     @Override
         public void actionPerformed(ActionEvent e) {
-        count++;
-        //label.setText("Number of clicks: " + count);
-        if(count == 1) {
-            String s = passowrdGenerator();
-             String myString = s;
-            StringSelection stringSelection = new StringSelection(myString);
-            Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
-            clipboard.setContents(stringSelection, null);
-            label.setText("Your password is " + s );
-        }
-        if(count == 2) 
-            exit(0);
-        
+            
+            if(e.getActionCommand().equals(Action.Generate.name())) {
+                    String s = passowrdGenerator();
+                    String myString = s;
+                    StringSelection stringSelection = new StringSelection(myString);
+                    Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+                    clipboard.setContents(stringSelection, null);
+                    label.setText("Your password is " + s );
+                
+            }
+            if(e.getActionCommand().equals(Action.close.name())) {
+               exit(0);
+            }
     }
     
     
